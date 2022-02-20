@@ -66,14 +66,14 @@ def validation(job):
         raise ValueError("min salary is not int")
     elif not isinstance(job["max_salary"], int):
         raise ValueError("max_salary is not int")
-    elif job["min_salary"] > job["max_salary"]:
-        raise ValueError("min salary higher than max_salary")
 
 
 def matches_salary_range(job, salary):
     validation(job)
     if salary >= job["min_salary"] and salary <= job["max_salary"]:
         return True
+    elif job["min_salary"] > job["max_salary"]:
+        raise ValueError("min salary higher than max_salary")
     elif not isinstance(salary, int):
         raise ValueError("Salary is not int")
     # print(job["min_salary"], job["max_salary"], salary)
