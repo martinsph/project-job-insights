@@ -57,30 +57,27 @@ def get_min_salary(path):
     pass
 
 
+def validation(job):
+    if "min_salary" not in job or "max_salary" not in job:
+        raise ValueError("max or/and min salary column do not exist")
+    elif job["min_salary"] is None or job["max_salary"] is None:
+        raise ValueError("max or/and min salary column do not exist")
+    elif not isinstance(job["min_salary"], int):
+        raise ValueError("min salary is not int")
+    elif not isinstance(job["max_salary"], int):
+        raise ValueError("max_salary is not int")
+    elif job["min_salary"] > job["max_salary"]:
+        raise ValueError("min salary higher than max_salary")
+
+
 def matches_salary_range(job, salary):
-    """Checks if a given salary is in the salary range of a given job
-
-    Parameters
-    ----------
-    job : dict
-        The job with `min_salary` and `max_salary` keys
-    salary : int
-        The salary to check if matches with salary range of the job
-
-    Returns
-    -------
-    bool
-        True if the salary is in the salary range of the job, False otherwise
-
-    Raises
-    ------
-    ValueError
-        If `job["min_salary"]` or `job["max_salary"]` doesn't exists
-        If `job["min_salary"]` or `job["max_salary"]` aren't valid integers
-        If `job["min_salary"]` is greather than `job["max_salary"]`
-        If `salary` isn't a valid integer
-    """
-    pass
+    validation(job)
+    if salary >= job["min_salary"] and salary <= job["max_salary"]:
+        return True
+    elif not isinstance(salary, int):
+        raise ValueError("Salary is not int")
+    # print(job["min_salary"], job["max_salary"], salary)
+    return False
 
 
 def filter_by_salary_range(jobs, salary):
